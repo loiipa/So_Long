@@ -6,31 +6,30 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 19:10:34 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/06 20:52:54 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/06 21:32:58 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "so_long.h"
+
+void	init_t_map(t_map *map_info)
+{
+	map_info->x = 0;
+	map_info->y = 0;
+	map_info->x_cur = 0;
+	map_info->y_cur = 0;
+	map_info->x_first = 0;
+	map_info->p_num = 0;
+	map_info->c_num = 0;
+	map_info->e_num = 0;
+}
 
 int	main(int argv, char **argc)
 {
 	int		fd;
 	int		rd;
-
-	int		x;
-	int		y;
-	int		x_cur;
-	int		y_cur;
-	int		x_first;
-
-	int		p_num;
-	int		c_num;
-	int		e_num;
-
+	t_map	map_info;
 	char	c;
-	char	map[100][100];
 
 	/*	받은 인자값 확인 + open 확인	*/
 	if (argv != 2)
@@ -50,8 +49,7 @@ int	main(int argv, char **argc)
 	/*	맨 마지막 줄에서 개행이 2개가 있을 때에도 대비를 해야하는건가..?	*/
 	/*	맨 첫번째 줄에서 x_max값 체크, n번째 줄의 x_max과 크기가 다르다면 map error처리	*/
 	rd = 1;
-	x = 0;
-	y = 0;
+	init_t_map(&map_info);
 	while (rd)
 	{
 		rd = read(fd, &c, 1);
@@ -66,85 +64,81 @@ int	main(int argv, char **argc)
 		}
 		if (c != '\n')
 		{
-			map[x][y] = c;
+			map_info.map[map_info.x][map_info.y] = c;
 			// printf("[x:%d, y:%d]	<%c>\n", x, y, c);
-			x++;
+			map_info.x++;
 		}
 		else
 		{
 			/*	map size check	*/
-			if (y == 0)
+			if (map_info.y == 0)
 			{
-				x_first = x;
+				map_info.x_first = map_info.x;
 			}
-			else if (y > 0 && x_first != x)
+			else if (map_info.y > 0 && map_info.x_first != map_info.x)
 			{
 				printf("error : map size\n");
 				return (0);
 			}
-			x = 0;
-			y++;
+			map_info.x = 0;
+			map_info.y++;
 		}
 		// printf("[x:%d, y:%d]	<%d>\n", x, y, c);
 	}
 	/*	if		xxx.ber 파일에 마지막 개행문자가 없는 경우	*/
 	/*	else	xxx.ber 파일에 마지막 개행문자가 있는 경우	*/
-	if (x == x_first)
+	if (map_info.x == map_info.x_first)
 	{
-		y++;
+		map_info.y++;
 	}
 	else
 	{
-		x = x_first;
+		map_info.x = map_info.x_first;
 	}
 
-	printf("[x:%d, y:%d]\n", x, y);
+	printf("[x:%d, y:%d]\n", map_info.x, map_info.y);
 	/*	들어온 인자값이 유효한지 확인	*/
 	/*	대문자, 소문자도 같이 확인해 줘야하나..?	*/
-	y_cur = 0;
-	p_num = 0;
-	e_num = 0;
-	c_num = 0;
-	while (y_cur < y)
+	while (map_info.y_cur < map_info.y)
 	{
-		x_cur = 0;
-		while (x_cur < x)
+		map_info.x_cur = 0;
+		while (map_info.x_cur < map_info.x)
 		{
 			/*	우선순위 (&& > ||)	*/
-			if ((x_cur == 0 || x_cur == x - 1 || y_cur == 0 || y_cur == y - 1) \
-			&& map[x_cur][y_cur] != '1')
+			if ((map_info.x_cur == 0 || map_info.x_cur == map_info.x - 1 || map_info.y_cur == 0 || map_info.y_cur == map_info.y - 1) && \
+			map_info.map[map_info.x_cur][map_info.y_cur] != '1')
 			{
 				// printf("[x:%d, y:%d]\n", x_cur, y_cur);
 				printf("error : wall boundary\n");
 				return (0);
 			}
-			if (map[x_cur][y_cur] == 'P' || map[x_cur][y_cur] == 'p')
+			if (map_info.map[map_info.x_cur][map_info.y_cur] == 'P' || map_info.map[map_info.x_cur][map_info.y_cur] == 'p')
 			{
-				p_num++;
+				map_info.p_num++;
 			}
-			else if (map[x_cur][y_cur] == 'E' || map[x_cur][y_cur] == 'e')
+			else if (map_info.map[map_info.x_cur][map_info.y_cur] == 'E' || map_info.map[map_info.x_cur][map_info.y_cur] == 'e')
 			{
-				e_num++;
+				map_info.e_num++;
 			}
-			else if (map[x_cur][y_cur] == 'C' || map[x_cur][y_cur] == 'c')
+			else if (map_info.map[map_info.x_cur][map_info.y_cur] == 'C' || map_info.map[map_info.x_cur][map_info.y_cur] == 'c')
 			{
-				c_num++;
+				map_info.c_num++;
 			}
-			x_cur++;
+			map_info.x_cur++;
 		}
-		y_cur++;
+		map_info.y_cur++;
 	}
-	if (p_num != 1)
+	if (map_info.p_num != 1)
 	{
-		printf("error : player starting position isn't one (current player_num:%d)\n", p_num);
+		printf("error : player starting position isn't one (current player_num:%d)\n", map_info.p_num);
 		return (0);
 	}
-	else if (e_num == 0)
+	else if (map_info.e_num == 0)
 	{
 		printf("error : map exit not exist\n");
 		return (0);
 	}
-	else if (c_num == 0)
+	else if (map_info.c_num == 0)
 	{
 		printf("error : collectible not exist\n");
 		return (0);
