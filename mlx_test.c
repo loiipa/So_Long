@@ -6,27 +6,13 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 15:49:17 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/06 18:17:59 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/06 21:34:17 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "so_long.h"
 
-typedef struct	s_param
-{
-	void	*ptr;
-	void	*ptr_window;
-	int		size_x;
-	int		size_y;
-	int		move_x;
-	int		move_y;
-	int		r;
-}				t_param;
-
-void	init_param(t_param *param)
+static void	init_t_param(t_param *param)
 {
 	param->size_x = 1024;
 	param->size_y = 768;
@@ -35,7 +21,7 @@ void	init_param(t_param *param)
 	param->r = 300;
 }
 
-void	make_circle(t_param *par)
+static void	make_circle(t_param *par)
 {
 	for (int i = 0; i < par->size_x; i++)
 	{
@@ -51,7 +37,7 @@ void	make_circle(t_param *par)
 	}
 }
 
-int	ft_exit(int keycode, void *param)
+static int	ft_exit(int keycode, void *param)
 {
 	t_param *par;
 
@@ -77,17 +63,16 @@ int	ft_exit(int keycode, void *param)
 	return (1);
 }
 
-int		main(void)
+void	mlx_test(void)
 {
 	t_param param;
 
-	init_param(&param);
+	init_t_param(&param);
 	param.ptr = mlx_init();
 	param.ptr_window = mlx_new_window(param.ptr, param.size_x, param.size_y, "cjang_miniRT");
 	make_circle(&param);
 	mlx_key_hook(param.ptr_window, ft_exit ,&param);
 	mlx_loop(param.ptr);
-	return (0);
 }
 
 //gcc -lmlx -framework OpenGL -framework AppKit -lz mlx_test.c
