@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 15:49:17 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/06 17:42:14 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/06 18:17:59 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,3 +91,5 @@ int		main(void)
 }
 
 //gcc -lmlx -framework OpenGL -framework AppKit -lz mlx_test.c
+
+// 빨간버튼 클릭시 종료되는 hook -> mlx_hook(win_ptr, 17, 0, (실행될함수), (넘겨줄인자값));
