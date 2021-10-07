@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 15:49:17 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/07 21:22:23 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/07 21:53:56 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ static void	fix_map_image(t_param *p, int fix_x, int fix_y, char c)
 	int		cur_y;
 
 	cur_y = fix_y * SQUARE_SIZE;
+	if (c == 'P' || c == 'p')
+	{
+		mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, fix_x * SQUARE_SIZE, fix_y * SQUARE_SIZE);
+		return ;
+	}
 	while (cur_y < fix_y * SQUARE_SIZE + SQUARE_SIZE)
 	{
 		cur_x = fix_x * SQUARE_SIZE;
@@ -137,8 +142,13 @@ void	mlx_test(t_map *map_info)
 
 	init_t_param(&param, map_info);
 	param.mlx_ptr = mlx_init();
-	param.win_ptr = mlx_new_window(param.mlx_ptr, param.size_x, param.size_y, "cjang_miniRT");
+	param.win_ptr = mlx_new_window(param.mlx_ptr, param.size_x, param.size_y, "cjang_So_Long");
 	make_map_image(&param);
+	//
+	int		i = SQUARE_SIZE;
+	param.img_ptr = mlx_xpm_file_to_image(param.mlx_ptr, "./image/100won.xpm", &i, &i);
+	mlx_put_image_to_window(param.mlx_ptr, param.win_ptr, param.img_ptr, 0, 0);
+	//
 	mlx_key_hook(param.win_ptr, ft_exit, &param);
 	mlx_loop(param.mlx_ptr);
 }
