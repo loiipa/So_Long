@@ -6,35 +6,101 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 15:49:17 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/06 21:34:17 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/07 21:22:23 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	init_t_param(t_param *param)
+static void	init_t_param(t_param *param, t_map *map_info)
 {
-	param->size_x = 1024;
-	param->size_y = 768;
-	param->move_x = 0;
-	param->move_y = 0;
-	param->r = 300;
+	param->size_x = map_info->x * SQUARE_SIZE;
+	param->size_y = map_info->y * SQUARE_SIZE;
+	param->player_x = map_info->player_x;
+	param->player_y = map_info->player_y;
+	param->c_num = map_info->c_num;
+	param->map = map_info->map;
+	param->move_num = 0;
 }
 
-static void	make_circle(t_param *par)
+static void	make_map_image(t_param *p)
 {
-	for (int i = 0; i < par->size_x; i++)
+	int		cur_x;
+	int		cur_y;
+	char	c;
+
+	cur_x = 0;
+	cur_y = 0;
+	while (cur_y < p->size_y)
 	{
-		for (int j = 0; j < par->size_y; j++)
+		cur_x = 0;
+		while (cur_x < p->size_x)
 		{
-			mlx_pixel_put(par->ptr, par->ptr_window, i, j, 0x00646464);
-			if (pow(200 + par->move_x - i, 2) + pow(300 + par->move_y- j, 2) < pow(par->r / 2, 2))
-				mlx_pixel_put(par->ptr, par->ptr_window, i, j, 0x00006464);
-			else if (pow(700 + par->move_x - i, 2) + pow(300 + par->move_y - j, 2) < pow(par->r, 2))
-				mlx_pixel_put(par->ptr, par->ptr_window, i, j, 0x00000064);
-			//mlx_string_put(ptr, ptr_window, 0, 0, 0x00006464, "cjang_world");
+			c = p->map[cur_x / SQUARE_SIZE][cur_y / SQUARE_SIZE];
+			if (c == '1')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00646464);
+			else if (c == '0')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00000000);
+			else if (c == 'P' || c == 'p')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00640000);
+			else if (c == 'E' || c == 'e')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00006400);
+			else if (c == 'C' || c == 'c')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00646400);
+			cur_x++;
 		}
+		cur_y++;
 	}
+}
+
+static void	fix_map_image(t_param *p, int fix_x, int fix_y, char c)
+{
+	int		cur_x;
+	int		cur_y;
+
+	cur_y = fix_y * SQUARE_SIZE;
+	while (cur_y < fix_y * SQUARE_SIZE + SQUARE_SIZE)
+	{
+		cur_x = fix_x * SQUARE_SIZE;
+		while (cur_x < fix_x * SQUARE_SIZE + SQUARE_SIZE)
+		{
+			if (c == '1')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00646464);
+			else if (c == '0')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00000000);
+			else if (c == 'P' || c == 'p')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00640000);
+			else if (c == 'E' || c == 'e')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00006400);
+			else if (c == 'C' || c == 'c')
+				mlx_pixel_put(p->mlx_ptr, p->win_ptr, cur_x, cur_y, 0x00646400);
+			cur_x++;
+		}
+		cur_y++;
+	}
+}
+
+static void	sl_move_player(int keycode, t_param *par, int next_x, int next_y)
+{
+	if (par->map[next_x][next_y] == '1')
+		return ;
+	else if ((par->map[next_x][next_y] == 'E' || par->map[next_x][next_y] == 'e') && par->c_num != 0)
+		return ;
+	if (par->map[next_x][next_y] == 'C' || par->map[next_x][next_y] == 'c')
+		par->c_num--;
+	else if ((par->map[next_x][next_y] == 'E' || par->map[next_x][next_y] == 'e') && par->c_num == 0)
+	{
+		printf("move : %d - exit success!\n", ++par->move_num);
+		exit(0);
+	}
+	par->map[par->player_x][par->player_y] = '0';
+	par->map[next_x][next_y] = 'P';
+	fix_map_image(par, par->player_x, par->player_y, '0');
+	fix_map_image(par, next_x, next_y, 'P');
+	par->player_x = next_x;
+	par->player_y = next_y;
+	par->move_num++;
+	printf("move : %d\n", par->move_num);
 }
 
 static int	ft_exit(int keycode, void *param)
@@ -42,39 +108,41 @@ static int	ft_exit(int keycode, void *param)
 	t_param *par;
 
 	par = param;
-	printf("input keycode : %d\n", keycode);
+	// printf("input keycode : %d\n", keycode);
 	if (keycode == 53)
 		exit(0);
 	//asdw
 	else if (keycode == 0)
-		par->move_x -= 10;
+	{
+		sl_move_player(keycode, par, par->player_x - 1, par->player_y);
+	}
 	else if (keycode == 1)
-		par->move_y += 10;
+	{
+		sl_move_player(keycode, par, par->player_x, par->player_y + 1);
+	}
 	else if (keycode == 2)
-		par->move_x += 10;
+	{
+		sl_move_player(keycode, par, par->player_x + 1, par->player_y);
+	}
 	else if (keycode == 13)
-		par->move_y -= 10;
-	else if (keycode == 12)
-		par->r += 10;
-	else if (keycode == 14)
-		par->r -= 10;
-	if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13 || keycode == 12 || keycode == 14)
-		make_circle(param);
+	{
+		sl_move_player(keycode, par, par->player_x, par->player_y - 1);
+	}
 	return (1);
 }
 
-void	mlx_test(void)
+void	mlx_test(t_map *map_info)
 {
 	t_param param;
 
-	init_t_param(&param);
-	param.ptr = mlx_init();
-	param.ptr_window = mlx_new_window(param.ptr, param.size_x, param.size_y, "cjang_miniRT");
-	make_circle(&param);
-	mlx_key_hook(param.ptr_window, ft_exit ,&param);
-	mlx_loop(param.ptr);
+	init_t_param(&param, map_info);
+	param.mlx_ptr = mlx_init();
+	param.win_ptr = mlx_new_window(param.mlx_ptr, param.size_x, param.size_y, "cjang_miniRT");
+	make_map_image(&param);
+	mlx_key_hook(param.win_ptr, ft_exit, &param);
+	mlx_loop(param.mlx_ptr);
 }
 
-//gcc -lmlx -framework OpenGL -framework AppKit -lz mlx_test.c
+//gcc -lmlx -framework OpenGL -framework AppKit -lz mlx_test.c map_checker.c
 
 // 빨간버튼 클릭시 종료되는 hook -> mlx_hook(win_ptr, 17, 0, (실행될함수), (넘겨줄인자값));
