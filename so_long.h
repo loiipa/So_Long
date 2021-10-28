@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/07 21:48:04 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/28 20:54:46 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define SQUARE_SIZE 50
 # define MAP_SIZE 100
 
+# include "libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -27,7 +28,7 @@ typedef struct s_param
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	void	*img_ptr;
+	void	*img_ptr_p;
 	int		size_x;
 	int		size_y;
 	char	(*map)[MAP_SIZE];
@@ -50,6 +51,16 @@ typedef struct s_map
 	char	map[MAP_SIZE][MAP_SIZE];
 }t_map;
 
+void	map_size_check(t_map *map_info, int *fd);
+void	map_vaid_check(t_map *m);
+
 void	mlx_test(t_map *map_info);
+
+void	error_user(char *s);
+void	error_system(void);
+
+void	init_t_param(t_param *param, t_map *map_info);
+void	init_t_param_img_ptr(t_param *param);
+void	init_t_map(t_map *map_info);
 
 #endif
