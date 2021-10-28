@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/28 20:54:46 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/28 22:35:15 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <mlx.h>
+# include "mlx_opengl/mlx.h"
+// # include <mlx.h>
 # include <math.h>
 
 typedef struct s_param
