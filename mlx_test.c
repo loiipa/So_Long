@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 15:49:17 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/28 20:58:21 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/29 10:40:25 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ static void	fix_map_image(t_param *p, int fix_x, int fix_y, char c)
 	{
 		fix_map_image(p, fix_x, fix_y, '0');
 		mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr_p, fix_x * SQUARE_SIZE, fix_y * SQUARE_SIZE);
+		return ;
+	}
+	else if (c == 'C' || c == 'c')
+	{
+		fix_map_image(p, fix_x, fix_y, '0');
+		mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr_c, fix_x * SQUARE_SIZE, fix_y * SQUARE_SIZE);
+		return ;
+	}
+	else if (c == 'E' || c == 'e')
+	{
+		fix_map_image(p, fix_x, fix_y, '0');
+		mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr_e, fix_x * SQUARE_SIZE, fix_y * SQUARE_SIZE);
+		return ;
+	}
+	else if (c == '0')
+	{
+		mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr_0, fix_x * SQUARE_SIZE, fix_y * SQUARE_SIZE);
 		return ;
 	}
 	cur_y = fix_y * SQUARE_SIZE;
