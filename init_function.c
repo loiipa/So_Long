@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:19:53 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/29 10:39:53 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/03 19:10:16 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	init_t_param_img_ptr(t_param *param)
 	"./image/candy.png", &width, &height);
 	param->img_ptr_e = mlx_png_file_to_image(param->mlx_ptr, \
 	"./image/exit.png", &width, &height);
+	param->img_ptr_1 = mlx_png_file_to_image(param->mlx_ptr, \
+	"./image/wall.png", &width, &height);
 	param->img_ptr_0 = mlx_png_file_to_image(param->mlx_ptr, \
 	"./image/tile.png", &width, &height);
 }
