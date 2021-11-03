@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/29 10:39:36 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/03 19:00:06 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@
 # define SQUARE_SIZE 32
 # define MAP_SIZE 100
 
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_W 13
+# define KEY_ESC 53
+
 # include "libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include "mlx_opengl/mlx.h"
-// # include <mlx.h>
 # include <math.h>
 
 typedef struct s_param
@@ -32,6 +37,7 @@ typedef struct s_param
 	void	*img_ptr_p;
 	void	*img_ptr_c;
 	void	*img_ptr_e;
+	void	*img_ptr_1;
 	void	*img_ptr_0;
 	int		size_x;
 	int		size_y;
