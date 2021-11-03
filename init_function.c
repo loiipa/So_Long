@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:19:53 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/28 20:58:08 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/29 10:39:53 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,14 @@ void	init_t_param_img_ptr(t_param *param)
 
 	width = SQUARE_SIZE;
 	height = SQUARE_SIZE;
-	param->img_ptr_p = mlx_xpm_file_to_image(param->mlx_ptr, \
-	"./image/100won.xpm", &width, &height);
+	param->img_ptr_p = mlx_png_file_to_image(param->mlx_ptr, \
+	"./image/pum.png", &width, &height);
+	param->img_ptr_c = mlx_png_file_to_image(param->mlx_ptr, \
+	"./image/candy.png", &width, &height);
+	param->img_ptr_e = mlx_png_file_to_image(param->mlx_ptr, \
+	"./image/exit.png", &width, &height);
+	param->img_ptr_0 = mlx_png_file_to_image(param->mlx_ptr, \
+	"./image/tile.png", &width, &height);
 }
 
 void	init_t_map(t_map *map_info)

@@ -6,14 +6,14 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/28 22:35:15 by cjang            ###   ########.fr       */
+/*   Updated: 2021/10/29 10:39:36 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define SQUARE_SIZE 50
+# define SQUARE_SIZE 32
 # define MAP_SIZE 100
 
 # include "libft/libft.h"
@@ -30,6 +30,9 @@ typedef struct s_param
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr_p;
+	void	*img_ptr_c;
+	void	*img_ptr_e;
+	void	*img_ptr_0;
 	int		size_x;
 	int		size_y;
 	char	(*map)[MAP_SIZE];
