@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 19:10:34 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/28 18:43:30 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/16 17:30:33 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,9 @@ void	map_vaid_check(t_map *m)
 		cur_x = 0;
 		while (cur_x < m->x)
 		{
-			/*	우선순위 (&& > ||)	*/
 			c = m->map[cur_x][cur_y];
-			if ((cur_x == 0 || cur_x == m->x - 1 || cur_y == 0 || cur_y == m->y - 1) && \
-			c != '1')
+			if ((cur_x == 0 || cur_x == m->x - 1 || cur_y == 0 || \
+			cur_y == m->y - 1) && c != '1')
 				error_user("Wall boundary\n");
 			if (c == 'P' || c == 'p')
 			{

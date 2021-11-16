@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 14:15:33 by cjang             #+#    #+#             */
-/*   Updated: 2021/10/28 18:39:28 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/16 17:19:18 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argv, char **argc)
 	init_t_map(&map_info);
 	map_size_check(&map_info, &fd);
 	map_vaid_check(&map_info);
-	mlx_test(&map_info);
+	mlx_execution(&map_info);
 	return (0);
 }
 
