@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/03 19:00:06 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/16 17:28:57 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 # define KEY_W 13
 # define KEY_ESC 53
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "mlx_opengl/mlx.h"
+# include "../mlx_opengl/mlx.h"
 # include <math.h>
 
 typedef struct s_param
@@ -64,13 +64,16 @@ typedef struct s_map
 void	map_size_check(t_map *map_info, int *fd);
 void	map_vaid_check(t_map *m);
 
-void	mlx_test(t_map *map_info);
+void	mlx_execution(t_map *map_info);
 
-void	error_user(char *s);
-void	error_system(void);
+void	fix_map_image(t_param *p, int fix_x, int fix_y, char c);
+void	init_map_image(t_param *p);
 
 void	init_t_param(t_param *param, t_map *map_info);
 void	init_t_param_img_ptr(t_param *param);
 void	init_t_map(t_map *map_info);
+
+void	error_user(char *s);
+void	error_system(void);
 
 #endif

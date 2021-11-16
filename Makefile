@@ -6,7 +6,7 @@
 #    By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 14:42:54 by cjang             #+#    #+#              #
-#    Updated: 2021/10/28 22:34:24 by cjang            ###   ########.fr        #
+#    Updated: 2021/11/16 18:17:10 by cjang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,14 @@ MLX_OPENGL = mlx_opengl
 LIBFT = libft
 LIBFT_A = libft/libft.a
 
-SRCS = so_long.c map_checker.c mlx_test.c error_function.c init_function.c
+SRCS_DIR = srcs/
+SRCS_FILE = so_long.c\
+			map_checker.c\
+			mlx_execution.c\
+			image_function.c\
+			error_function.c\
+			init_function.c
+SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILE))
 
 OBJS = $(SRCS:.c=.o)
 
@@ -51,4 +58,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re $(LIBFT) $(MLX_OPENGL)
+start:
+	./so_long ./map/success_002.ber
+
+.PHONY: all bonus clean fclean re $(LIBFT) $(MLX_OPENGL) start
