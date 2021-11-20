@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/16 17:28:57 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/20 17:49:34 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define SQUARE_SIZE 32
 # define MAP_SIZE 100
+# define MALLOC_SIZE 128
 
 # define KEY_A 0
 # define KEY_S 1
@@ -23,6 +24,7 @@
 # define KEY_ESC 53
 
 # include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -41,7 +43,7 @@ typedef struct s_param
 	void	*img_ptr_0;
 	int		size_x;
 	int		size_y;
-	char	(*map)[MAP_SIZE];
+	char	**map;
 	int		player_x;
 	int		player_y;
 	int		c_num;
@@ -58,10 +60,12 @@ typedef struct s_map
 	int		p_num;
 	int		c_num;
 	int		e_num;
-	char	map[MAP_SIZE][MAP_SIZE];
+	char	**map;
+	int		map_size;
+	int		map_flag;
 }t_map;
 
-void	map_size_check(t_map *map_info, int *fd);
+void	map_size_check(t_map *map_info, int fd);
 void	map_vaid_check(t_map *m);
 
 void	mlx_execution(t_map *map_info);

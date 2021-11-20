@@ -6,62 +6,58 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 19:10:34 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/16 18:36:50 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/20 19:41:24 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	read_check(int *fd, int *rd, char *c)
+static int	gnl_check(int i, t_map *map_info)
 {
-	*rd = read(*fd, c, 1);
-	if (rd < 0)
-		error_system();
+	map_info->x = ft_strlen(map_info->map[i]);
+	if (map_info->y == 0 && map_info->x == 0)
+		error_user("Map size error\n");
+	else if (map_info->y == 0)
+		map_info->first_x = map_info->x;
+	else if (map_info->y > 0 && map_info->map_flag == 0 && map_info->x == 0)
+		return (++(map_info->map_flag));
+	else if (map_info->y > 0 && map_info->map_flag != 0 && map_info->x == 0)
+		error_user("Map size error\n");
+	else if (map_info->y > 0 && map_info->first_x != map_info->x)
+		error_user("Map size error\n");
+	map_info->y++;
+	return (0);
 }
 
-static void	rd_check(int rd, char c, t_map *map_info)
+void	map_size_check(t_map *map_info, int fd)
 {
-	if (rd != 0 && c != '\n')
-	{
-		map_info->map[map_info->x][map_info->y] = c;
-		map_info->x++;
-	}
-	else if (rd != 0)
-	{
-		if (map_info->y == 0)
-			map_info->first_x = map_info->x;
-		else if (map_info->y > 0 && map_info->first_x != map_info->x)
-			error_user("Map size\n");
-		map_info->x = 0;
-		map_info->y++;
-	}
-}
+	int		gnl;
+	int		i;
+	char	*line;
 
-void	map_size_check(t_map *map_info, int *fd)
-{
-	int		rd;
-	char	c;
-
-	rd = 1;
-	while (rd)
+	i = 0;
+	gnl = 1;
+	while (gnl > 0)
 	{
-		read_check(fd, &rd, &c);
-		rd_check(rd, c, map_info);
+		gnl = get_next_line(fd, &line);
+		if (gnl == -1)
+			error_user("GNL Error\n");
+		map_info->map[i] = line;
+		gnl_check(i, map_info);
+		i++;
 	}
-	if (map_info->x == map_info->first_x)
-		map_info->y++;
-	else
-		map_info->x = map_info->first_x;
+	map_info->map[i] = NULL;
+	map_info->x = map_info->first_x;
 }
 	/*	if		xxx.ber 파일에 마지막 개행문자가 없는 경우	*/
 	/*	else	xxx.ber 파일에 마지막 개행문자가 있는 경우	*/
 
-static void	map_element_check(char c, t_map *map_info)
+static void	map_element_check(char c, int *cur_x, int *cur_y, t_map *map_info)
 {
 	if (c == 'P' || c == 'p')
 	{
-		map_info->player_x = cur_x;
-		map_info->player_y = cur_y;
+		map_info->player_x = *cur_x;
+		map_info->player_y = *cur_y;
 		map_info->p_num++;
 	}
 	else if (c == 'E' || c == 'e')
@@ -86,11 +82,11 @@ void	map_vaid_check(t_map *m)
 		cur_x = 0;
 		while (cur_x < m->x)
 		{
-			c = m->map[cur_x][cur_y];
+			c = m->map[cur_y][cur_x];
 			if ((cur_x == 0 || cur_x == m->x - 1 || cur_y == 0 || \
 			cur_y == m->y - 1) && c != '1')
 				error_user("Wall boundary\n");
-			map_element_check(c, m);
+			map_element_check(c, &cur_x, &cur_y, m);
 			cur_x++;
 		}
 		cur_y++;

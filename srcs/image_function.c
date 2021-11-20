@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:22:09 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/16 17:24:40 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/20 18:34:57 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_map_image(t_param *p)
 		cur_x = 0;
 		while (cur_x < p->size_x)
 		{
-			c = p->map[cur_x][cur_y];
+			c = p->map[cur_y][cur_x];
 			fix_map_image(p, cur_x, cur_y, c);
 			cur_x++;
 		}
