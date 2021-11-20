@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 15:49:17 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/16 17:28:11 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/20 18:35:00 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	sol_move_player(t_param *par, int next_x, int next_y)
 {
 	char	next;
 
-	next = par->map[next_x][next_y];
+	next = par->map[next_y][next_x];
 	if (next == '1')
 		return ;
 	else if ((next == 'E' || next == 'e') && par->c_num != 0)
@@ -28,8 +28,8 @@ static void	sol_move_player(t_param *par, int next_x, int next_y)
 		printf("move : %d - exit success!\n", ++par->move_num);
 		exit(0);
 	}
-	par->map[par->player_x][par->player_y] = '0';
-	par->map[next_x][next_y] = 'P';
+	par->map[par->player_y][par->player_x] = '0';
+	par->map[next_y][next_x] = 'P';
 	fix_map_image(par, par->player_x, par->player_y, '0');
 	fix_map_image(par, next_x, next_y, 'P');
 	par->player_x = next_x;

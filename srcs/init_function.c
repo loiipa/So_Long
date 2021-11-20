@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:19:53 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/03 19:10:16 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/20 18:33:47 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,27 @@ void	init_t_param_img_ptr(t_param *param)
 	"./image/tile.png", &width, &height);
 }
 
+void	resize_map(t_map *map_info)
+{
+	char	**map_tmp;
+	int		i;
+
+	i = 0;
+	map_tmp = (char **)malloc(map_info->map_size * 2 * sizeof(char *));
+	if (!map_tmp)
+	{
+		// 기존의 것 할당해제하는게 깔-끔
+		error_user("malloc fail\n");
+	}
+	while (i < map_info->map_size)
+	{
+		map_tmp[i] = map_info->map[i];
+		i++;
+	}
+	free(map_info->map);
+	map_info->map = map_tmp;
+}
+
 void	init_t_map(t_map *map_info)
 {
 	map_info->x = 0;
@@ -55,4 +76,9 @@ void	init_t_map(t_map *map_info)
 	map_info->p_num = 0;
 	map_info->c_num = 0;
 	map_info->e_num = 0;
+	map_info->map_size = MALLOC_SIZE;
+	map_info->map = (char **)malloc(map_info->map_size * sizeof(char *));
+	if (!map_info->map)
+		error_user("malloc fail\n");
+	map_info->map_flag = 0;
 }
