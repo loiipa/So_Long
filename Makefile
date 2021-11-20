@@ -6,7 +6,7 @@
 #    By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 14:42:54 by cjang             #+#    #+#              #
-#    Updated: 2021/11/20 18:35:16 by cjang            ###   ########.fr        #
+#    Updated: 2021/11/20 20:25:40 by cjang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS_FILE = so_long.c\
 			mlx_execution.c\
 			image_function.c\
 			error_function.c\
-			init_function.c
+			init_function.c\
+			malloc_function.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILE))
 
 OBJS = $(SRCS:.c=.o)

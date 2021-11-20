@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:19:53 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 18:33:47 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/20 21:30:59 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,16 @@ void	init_t_param_img_ptr(t_param *param)
 
 	width = SQUARE_SIZE;
 	height = SQUARE_SIZE;
-	param->img_ptr_p = mlx_png_file_to_image(param->mlx_ptr, \
-	"./image/pum.png", &width, &height);
-	param->img_ptr_c = mlx_png_file_to_image(param->mlx_ptr, \
-	"./image/candy.png", &width, &height);
-	param->img_ptr_e = mlx_png_file_to_image(param->mlx_ptr, \
-	"./image/exit.png", &width, &height);
-	param->img_ptr_1 = mlx_png_file_to_image(param->mlx_ptr, \
-	"./image/wall.png", &width, &height);
-	param->img_ptr_0 = mlx_png_file_to_image(param->mlx_ptr, \
-	"./image/tile.png", &width, &height);
-}
-
-void	resize_map(t_map *map_info)
-{
-	char	**map_tmp;
-	int		i;
-
-	i = 0;
-	map_tmp = (char **)malloc(map_info->map_size * 2 * sizeof(char *));
-	if (!map_tmp)
-	{
-		// 기존의 것 할당해제하는게 깔-끔
-		error_user("malloc fail\n");
-	}
-	while (i < map_info->map_size)
-	{
-		map_tmp[i] = map_info->map[i];
-		i++;
-	}
-	free(map_info->map);
-	map_info->map = map_tmp;
+	param->img_ptr_p = mlx_xpm_file_to_image(param->mlx_ptr, \
+	"./image/pum.xpm", &width, &height);
+	param->img_ptr_c = mlx_xpm_file_to_image(param->mlx_ptr, \
+	"./image/candy.xpm", &width, &height);
+	param->img_ptr_e = mlx_xpm_file_to_image(param->mlx_ptr, \
+	"./image/exit.xpm", &width, &height);
+	param->img_ptr_1 = mlx_xpm_file_to_image(param->mlx_ptr, \
+	"./image/wall.xpm", &width, &height);
+	param->img_ptr_0 = mlx_xpm_file_to_image(param->mlx_ptr, \
+	"./image/tile.xpm", &width, &height);
 }
 
 void	init_t_map(t_map *map_info)
@@ -76,9 +55,33 @@ void	init_t_map(t_map *map_info)
 	map_info->p_num = 0;
 	map_info->c_num = 0;
 	map_info->e_num = 0;
+}
+
+void	init_map(t_map *map_info, int fd)
+{
+	int		gnl;
+	int		i;
+	char	*line;
+
+	i = 0;
+	gnl = 1;
+	map_info->map_flag = 0;
+	if (MALLOC_SIZE < 2)
+		error_user("check MALLOC_SIZE in so_long.h\n");
 	map_info->map_size = MALLOC_SIZE;
 	map_info->map = (char **)malloc(map_info->map_size * sizeof(char *));
 	if (!map_info->map)
 		error_user("malloc fail\n");
-	map_info->map_flag = 0;
+	while (gnl > 0)
+	{
+		gnl = get_next_line(fd, &line);
+		if (gnl == -1)
+			error_user("GNL Error\n");
+		if (i == map_info->map_size)
+			resize_map(map_info);
+		map_info->map[i] = line;
+		check_map_size(i++, map_info);
+	}
+	map_info->map[i] = NULL;
+	map_info->x = map_info->first_x;
 }
