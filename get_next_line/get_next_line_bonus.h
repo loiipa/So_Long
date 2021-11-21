@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 17:20:58 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 17:33:39 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/21 20:50:51 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 16
+#  define BUFFER_SIZE 32
 # endif
 # ifndef FD_MAX
 #  define FD_MAX 256

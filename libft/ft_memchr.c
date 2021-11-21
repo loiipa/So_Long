@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/03 17:20:58 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 20:35:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/23 01:20:08 by cjang             #+#    #+#             */
+/*   Updated: 2020/12/29 01:39:15 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 16
-# endif
-# ifndef FD_MAX
-#  define FD_MAX 256
-# endif
-
-# include <unistd.h>
-# include <stdlib.h>
-
-char	*ft_gnl_strjoin(char const *s1, char const *s2);
-char	*ft_gnl_strdup(const char *s1);
-int		get_next_line(int fd, char **line);
-
-#endif
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	while (n-- > 0)
+	{
+		if (*(unsigned char *)s == (unsigned char)c)
+			return ((unsigned char *)s);
+		s += 1;
+	}
+	return (NULL);
+}

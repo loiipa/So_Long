@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 22:06:05 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 18:46:07 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/21 21:15:46 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ char **buffer)
 	{
 		if (!(tok_line(*buffer, line_save)))
 			return (0);
-		*line = ft_gnl_strjoin(*line_tmp, *buffer);
-		if (!(*line))
+		if (!(*line = ft_gnl_strjoin(*line_tmp, *buffer)))
 			return (0);
 	}
 	else
@@ -71,10 +70,13 @@ int read_num)
 		return (free_buffer(buffer, -1));
 	else
 	{
+		if (*line_tmp)
+			return (free_buffer(buffer, 0));
 		*line = ft_gnl_strdup("");
-		if (!(*line_tmp) && !(*line))
+		if (!(*line))
 			return (free_buffer(buffer, -1));
-		return (free_buffer(buffer, 0));
+		else
+			return (free_buffer(buffer, 0));
 	}
 }
 
@@ -88,7 +90,7 @@ int	get_next_line(int fd, char **line)
 	if (fd < 0 || fd > FD_MAX || BUFFER_SIZE <= 0 || !line)
 		return (-1);
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
-	if (!(buffer))
+	if (!buffer)
 		return (-1);
 	line_tmp = line_save[fd];
 	if (line_save[fd])

@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/03 17:20:58 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 20:35:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/28 03:26:17 by cjang             #+#    #+#             */
+/*   Updated: 2021/07/16 15:53:55 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 16
-# endif
-# ifndef FD_MAX
-#  define FD_MAX 256
-# endif
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	s_len;
 
-# include <unistd.h>
-# include <stdlib.h>
-
-char	*ft_gnl_strjoin(char const *s1, char const *s2);
-char	*ft_gnl_strdup(const char *s1);
-int		get_next_line(int fd, char **line);
-
-#endif
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	sub = malloc(len + 1);
+	if (!sub)
+		return (NULL);
+	if (s_len <= start)
+	{
+		*sub = 0;
+		return (sub);
+	}
+	ft_strlcpy(sub, &s[start], len + 1);
+	return (sub);
+}

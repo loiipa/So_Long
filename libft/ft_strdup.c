@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/03 17:20:58 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 20:35:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/28 02:05:28 by cjang             #+#    #+#             */
+/*   Updated: 2021/07/16 15:55:40 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 16
-# endif
-# ifndef FD_MAX
-#  define FD_MAX 256
-# endif
+char	*ft_strdup(const char *s1)
+{
+	size_t		i;
+	size_t		len;
+	char		*cp;
 
-# include <unistd.h>
-# include <stdlib.h>
-
-char	*ft_gnl_strjoin(char const *s1, char const *s2);
-char	*ft_gnl_strdup(const char *s1);
-int		get_next_line(int fd, char **line);
-
-#endif
+	i = 0;
+	len = 0;
+	while (s1[len])
+		len++;
+	cp = (char *)malloc(len + 1);
+	if (!cp)
+		return (NULL);
+	while (i < len + 1)
+	{
+		cp[i] = s1[i];
+		i++;
+	}
+	return (cp);
+}

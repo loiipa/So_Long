@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/03 17:20:58 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 20:35:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/29 19:26:52 by cjang             #+#    #+#             */
+/*   Updated: 2020/12/29 19:32:33 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 16
-# endif
-# ifndef FD_MAX
-#  define FD_MAX 256
-# endif
+void	ft_putnbr_fd(int n, int fd)
+{
+	int		digit;
+	char	c;
 
-# include <unistd.h>
-# include <stdlib.h>
-
-char	*ft_gnl_strjoin(char const *s1, char const *s2);
-char	*ft_gnl_strdup(const char *s1);
-int		get_next_line(int fd, char **line);
-
-#endif
+	digit = 1;
+	if (n == -2147483648)
+	{
+		write(fd, "-2147483648", 11);
+		return ;
+	}
+	else if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	while (n / 10 >= digit)
+		digit *= 10;
+	while (digit > 0)
+	{
+		c = n / digit + '0';
+		write(fd, &c, 1);
+		n %= digit;
+		digit /= 10;
+	}
+}

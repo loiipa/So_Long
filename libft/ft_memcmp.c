@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 14:15:33 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 21:17:05 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/23 01:55:32 by cjang             #+#    #+#             */
+/*   Updated: 2021/07/16 15:46:12 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-static int	check_open(int argv, char **argc)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int		fd;
-
-	if (argv != 2)
-		error_user("Please write map location");
-	fd = open(argc[1], O_RDONLY);
-	if (fd < 0)
-		error_system();
-	return (fd);
-}
-
-int	main(int argv, char **argc)
-{
-	int		fd;
-	t_map	map_info;
-
-	fd = check_open(argv, argc);
-	init_t_map(&map_info);
-	init_map(&map_info, fd);
-	check_map_vaid(&map_info);
-	mlx_execution(&map_info);
+	while (n-- > 0)
+	{
+		if (*(unsigned char *)s1 != *(unsigned char *)s2)
+			return (*(unsigned char *)s1 - *(unsigned char *)s2);
+		s1++;
+		s2++;
+	}
 	return (0);
 }
