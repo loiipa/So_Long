@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 17:20:43 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 17:35:12 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/21 18:48:00 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*ft_gnl_strdup(const char *s1)
 	len = 0;
 	while (s1[len])
 		len++;
-	if (!(cp = (char *)malloc(len + 1)))
+	cp = (char *)malloc(len + 1);
+	if (!cp)
 		return (NULL);
 	while (i < len + 1)
 	{
@@ -57,7 +58,8 @@ char	*ft_gnl_strjoin(char const *s1, char const *s2)
 		return (ft_gnl_strdup(s1));
 	len[0] = ft_gnl_strlen(s1);
 	len[1] = ft_gnl_strlen(s2);
-	if (!(s1s2 = (char *)malloc(len[0] + len[1] + 1)))
+	s1s2 = (char *)malloc(len[0] + len[1] + 1);
+	if (!s1s2)
 		return (NULL);
 	while (*s1)
 		s1s2[i++] = *s1++;

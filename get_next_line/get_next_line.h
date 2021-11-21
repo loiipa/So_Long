@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 17:20:58 by cjang             #+#    #+#             */
-/*   Updated: 2021/01/07 19:47:43 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/21 18:49:07 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s1);
+char	*ft_gnl_strjoin(char const *s1, char const *s2);
+char	*ft_gnl_strdup(const char *s1);
 int		get_next_line(int fd, char **line);
 
 #endif
