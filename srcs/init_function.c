@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:19:53 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:30:59 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/21 19:45:03 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,8 @@ void	init_t_map(t_map *map_info)
 	map_info->e_num = 0;
 }
 
-void	init_map(t_map *map_info, int fd)
+static void	init_t_map_about_map(t_map *map_info)
 {
-	int		gnl;
-	int		i;
-	char	*line;
-
-	i = 0;
-	gnl = 1;
 	map_info->map_flag = 0;
 	if (MALLOC_SIZE < 2)
 		error_user("check MALLOC_SIZE in so_long.h\n");
@@ -72,6 +66,17 @@ void	init_map(t_map *map_info, int fd)
 	map_info->map = (char **)malloc(map_info->map_size * sizeof(char *));
 	if (!map_info->map)
 		error_user("malloc fail\n");
+}
+
+void	init_map(t_map *map_info, int fd)
+{
+	int		gnl;
+	int		i;
+	char	*line;
+
+	init_t_map_about_map(map_info);
+	i = 0;
+	gnl = 1;
 	while (gnl > 0)
 	{
 		gnl = get_next_line(fd, &line);
@@ -82,6 +87,8 @@ void	init_map(t_map *map_info, int fd)
 		map_info->map[i] = line;
 		check_map_size(i++, map_info);
 	}
+	if (i == map_info->map_size)
+		resize_map(map_info);
 	map_info->map[i] = NULL;
 	map_info->x = map_info->first_x;
 }
