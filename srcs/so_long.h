@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 19:09:05 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/21 19:55:55 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SO_LONG_H
 
 # define SQUARE_SIZE 32
-# define MAP_SIZE 100
 # define MALLOC_SIZE 2
 
 # define KEY_A 0
@@ -25,11 +24,11 @@
 
 # include "../libft/libft.h"
 # include "../get_next_line/get_next_line.h"
+# include "../mlx_opengl/mlx.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "../mlx_opengl/mlx.h"
 # include <math.h>
 
 typedef struct s_param
