@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 22:06:05 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/21 21:16:19 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/24 14:25:05 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char **buffer)
 	{
 		if (!(tok_line(*buffer, line_save)))
 			return (0);
-		if (!(*line = ft_gnl_strjoin(*line_tmp, *buffer)))
+		*line = ft_gnl_strjoin(*line_tmp, *buffer);
+		if (!(*line))
 			return (0);
 	}
 	else
