@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2021/01/01 19:13:48 by cjang             #+#    #+#             */
+/*   Updated: 2021/01/01 19:39:26 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	t_list	*tmp;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	if (!(*lst))
+		*lst = new;
+	else
+	{
+		tmp = *lst;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	new->next = NULL;
 }

@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/25 13:39:55 by cjang             #+#    #+#             */
+/*   Updated: 2020/12/25 14:05:58 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+char	*ft_strrchr(const char *s, int c)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	char	*tmp;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	tmp = (char *)s;
+	while (*tmp)
+		tmp++;
+	while (*tmp != (char)c && tmp != s)
+		tmp--;
+	if (*tmp == (char)c)
+		return (tmp);
+	return (NULL);
 }

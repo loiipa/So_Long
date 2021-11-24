@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/29 19:19:09 by cjang             #+#    #+#             */
+/*   Updated: 2020/12/31 23:38:06 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+void	ft_putendl_fd(char *s, int fd)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
-
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }

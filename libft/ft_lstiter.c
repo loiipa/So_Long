@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2021/01/01 21:59:26 by cjang             #+#    #+#             */
+/*   Updated: 2021/01/01 22:27:38 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
-
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }

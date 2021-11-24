@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/28 20:33:51 by cjang             #+#    #+#             */
+/*   Updated: 2021/07/16 15:54:47 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	char	*trim;
+	size_t	n;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	if (!s1 || !set)
+		return (NULL);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	n = ft_strlen(s1);
+	while (n > 1 && ft_strrchr(set, s1[n - 1]))
+		n--;
+	trim = (char *)malloc(n + 1);
+	if (!trim)
+		return (NULL);
+	ft_strlcpy(trim, s1, n + 1);
+	return (trim);
 }

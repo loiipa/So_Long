@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/28 02:05:28 by cjang             #+#    #+#             */
+/*   Updated: 2021/07/16 15:55:40 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+char	*ft_strdup(const char *s1)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	size_t		i;
+	size_t		len;
+	char		*cp;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	i = 0;
+	len = 0;
+	while (s1[len])
+		len++;
+	cp = (char *)malloc(len + 1);
+	if (!cp)
+		return (NULL);
+	while (i < len + 1)
+	{
+		cp[i] = s1[i];
+		i++;
+	}
+	return (cp);
 }

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/22 19:05:54 by cjang             #+#    #+#             */
+/*   Updated: 2020/12/24 16:06:19 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	unsigned char	*tmp_1;
+	unsigned char	*tmp_2;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	tmp_1 = (unsigned char *)dst;
+	tmp_2 = (unsigned char *)src;
+	if (dst > src)
+		while (len-- > 0)
+			tmp_1[len] = tmp_2[len];
+	else if (dst < src)
+		while (len-- > 0)
+			*tmp_1++ = *tmp_2++;
+	return (dst);
 }

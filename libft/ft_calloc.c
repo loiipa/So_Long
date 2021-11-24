@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/26 20:04:52 by cjang             #+#    #+#             */
+/*   Updated: 2021/07/16 15:55:13 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+void	*ft_calloc(size_t count, size_t size)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	unsigned char	*mem;
+	size_t			n;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	n = count * size;
+	mem = malloc(n);
+	if (!mem)
+		return (NULL);
+	while (n > 0)
+		mem[--n] = 0;
+	return (mem);
 }

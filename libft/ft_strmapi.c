@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/29 17:54:25 by cjang             #+#    #+#             */
+/*   Updated: 2021/07/16 15:54:28 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	char			*newstr;
+	unsigned int	index;
+	unsigned int	len;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	if (!s)
+		return (NULL);
+	index = 0;
+	len = ft_strlen(s);
+	newstr = (char *)malloc(len + 1);
+	if (!newstr)
+		return (NULL);
+	while (index < len)
+	{
+		newstr[index] = f(index, s[index]);
+		index++;
+	}
+	newstr[index] = '\0';
+	return (newstr);
 }

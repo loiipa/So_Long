@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2020/12/22 11:32:01 by cjang             #+#    #+#             */
+/*   Updated: 2020/12/24 16:52:58 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	unsigned char	*tmp;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	tmp = (unsigned char *)dst;
+	if (dst == 0 && src == 0)
+		return (NULL);
+	while (n-- > 0)
+		*tmp++ = *(unsigned char *)src++;
+	return (dst);
 }

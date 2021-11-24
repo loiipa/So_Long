@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_function.c                                   :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 17:53:03 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/20 21:25:39 by cjang            ###   ########.fr       */
+/*   Created: 2021/01/01 23:03:08 by cjang             #+#    #+#             */
+/*   Updated: 2021/01/02 15:26:52 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	error_user(char *s)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(0);
-}
+	t_list	*first_lst;
+	t_list	*second_lst;
 
-void	error_system(void)
-{
-	perror("Error\n");
-	exit(0);
+	second_lst = *lst;
+	*lst = NULL;
+	while (second_lst)
+	{
+		first_lst = second_lst;
+		second_lst = second_lst->next;
+		del(first_lst->content);
+		free(first_lst);
+	}
 }

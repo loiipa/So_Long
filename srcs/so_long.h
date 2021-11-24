@@ -6,7 +6,7 @@
 /*   By: cjang <cjang@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 21:19:11 by cjang             #+#    #+#             */
-/*   Updated: 2021/11/16 17:28:57 by cjang            ###   ########.fr       */
+/*   Updated: 2021/11/21 19:55:55 by cjang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SO_LONG_H
 
 # define SQUARE_SIZE 32
-# define MAP_SIZE 100
+# define MALLOC_SIZE 2
 
 # define KEY_A 0
 # define KEY_S 1
@@ -23,11 +23,12 @@
 # define KEY_ESC 53
 
 # include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
+# include "../mlx_opengl/mlx.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "../mlx_opengl/mlx.h"
 # include <math.h>
 
 typedef struct s_param
@@ -41,7 +42,7 @@ typedef struct s_param
 	void	*img_ptr_0;
 	int		size_x;
 	int		size_y;
-	char	(*map)[MAP_SIZE];
+	char	**map;
 	int		player_x;
 	int		player_y;
 	int		c_num;
@@ -58,20 +59,26 @@ typedef struct s_map
 	int		p_num;
 	int		c_num;
 	int		e_num;
-	char	map[MAP_SIZE][MAP_SIZE];
+	int		map_flag;
+	int		map_size;
+	char	**map;
 }t_map;
 
-void	map_size_check(t_map *map_info, int *fd);
-void	map_vaid_check(t_map *m);
+void	init_t_param(t_param *param, t_map *map_info);
+void	init_t_param_img_ptr(t_param *param);
+void	init_t_map(t_map *map_info);
+void	init_map(t_map *map_info, int fd);
+
+void	check_map_size(int i, t_map *map_info);
+void	check_map_vaid(t_map *m);
 
 void	mlx_execution(t_map *map_info);
 
 void	fix_map_image(t_param *p, int fix_x, int fix_y, char c);
 void	init_map_image(t_param *p);
 
-void	init_t_param(t_param *param, t_map *map_info);
-void	init_t_param_img_ptr(t_param *param);
-void	init_t_map(t_map *map_info);
+char	**free_2d_array(char **arr, int i);
+void	resize_map(t_map *map_info);
 
 void	error_user(char *s);
 void	error_system(void);
